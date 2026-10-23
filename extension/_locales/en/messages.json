@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "Joy2Cloud"
+  },
+  "extDescription": {
+    "message": "Play cloud games in Chrome with Nintendo Switch 2 Joy-Con. Connects over Bluetooth and shows up as an Xbox controller. No drivers."
+  },
+  "actionTitle": {
+    "message": "Open Joy2Cloud"
+  }
+}

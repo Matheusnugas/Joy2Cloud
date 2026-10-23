@@ -1,0 +1,16 @@
+{
+  "name": "joy2cloud",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Use Nintendo Switch 2 Joy-Con with cloud gaming in Chrome, over Web Bluetooth.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/decoder.test.mjs && node tests/calibration.test.mjs && node tests/e2e.test.mjs",
+    "screenshots": "node tests/screenshot.mjs light en 1100 && node tests/screenshot.mjs dark en 1100",
+    "package": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

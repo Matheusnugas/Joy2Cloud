@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "short_name": "Joy2Cloud",
+  "version": "1.0.0",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.xbox.com/*",
+        "https://play.geforcenow.com/*",
+        "https://luna.amazon.com/*",
+        "https://luna.amazon.co.uk/*",
+        "https://luna.amazon.de/*",
+        "https://luna.amazon.ca/*",
+        "https://cloud.boosteroid.com/*",
+        "https://hardwaretester.com/*",
+        "https://gamepad-tester.com/*"
+      ],
+      "js": ["inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.xbox.com/*",
+        "https://play.geforcenow.com/*",
+        "https://luna.amazon.com/*",
+        "https://luna.amazon.co.uk/*",
+        "https://luna.amazon.de/*",
+        "https://luna.amazon.ca/*",
+        "https://cloud.boosteroid.com/*",
+        "https://hardwaretester.com/*",
+        "https://gamepad-tester.com/*"
+      ],
+      "js": ["bridge.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

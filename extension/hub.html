@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joy2Cloud</title>
+<link rel="icon" href="icons/icon32.png">
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="brand">
+      <img src="icons/icon128.png" alt="" width="40" height="40">
+      <div>
+        <h1>Joy2Cloud</h1>
+        <p class="lede" data-i18n="lede"></p>
+      </div>
+    </div>
+    <div class="top-side">
+      <div class="link" id="link" data-state="idle" role="status">
+        <span class="link-dot"></span>
+        <span id="linkText"></span>
+      </div>
+      <label class="lang">
+        <span class="visually-hidden" data-i18n="languageLabel"></span>
+        <select id="lang"></select>
+      </label>
+    </div>
+  </header>
+
+  <section class="halves" aria-label="Controllers">
+    <article class="half" data-side="L" id="halfL" data-state="empty">
+      <header>
+        <h2 data-i18n="leftName"></h2>
+        <span class="state" id="stateL"></span>
+      </header>
+      <div class="viz">
+        <canvas id="stickL" width="176" height="176" aria-hidden="true"></canvas>
+        <p class="empty-hint" data-i18n="emptyHint"></p>
+        <p class="cal-hint" id="calL" hidden></p>
+      </div>
+      <div class="chips" id="chipsL"></div>
+    </article>
+
+    <article class="half" data-side="R" id="halfR" data-state="empty">
+      <header>
+        <h2 data-i18n="rightName"></h2>
+        <span class="state" id="stateR"></span>
+      </header>
+      <div class="viz">
+        <canvas id="stickR" width="176" height="176" aria-hidden="true"></canvas>
+        <p class="empty-hint" data-i18n="emptyHint"></p>
+        <p class="cal-hint" id="calR" hidden></p>
+      </div>
+      <div class="chips" id="chipsR"></div>
+    </article>
+  </section>
+
+  <div class="actions">
+    <button class="primary" id="pair" data-i18n="pairButton"></button>
+    <button class="quiet" id="recenter" data-i18n-title="calibrateTitle"></button>
+  </div>
+
+  <div class="columns">
+    <section class="panel">
+      <h3 data-i18n="howTitle"></h3>
+      <ol class="steps">
+        <li data-i18n="step1"></li>
+        <li data-i18n="step2"></li>
+        <li data-i18n="step3"></li>
+        <li data-i18n="step4"></li>
+        <li data-i18n="step5"></li>
+      </ol>
+    </section>
+
+    <section class="panel">
+      <h3 data-i18n="settingsTitle"></h3>
+
+      <div class="setting">
+        <div class="setting-label" id="layoutLabel" data-i18n="layoutLabel"></div>
+        <div class="segmented" role="radiogroup" aria-labelledby="layoutLabel">
+          <label><input type="radio" name="layout" value="position"><span data-i18n="layoutPosition"></span></label>
+          <label><input type="radio" name="layout" value="label"><span data-i18n="layoutLabelOpt"></span></label>
+        </div>
+        <p class="help" id="layoutHelp"></p>
+      </div>
+
+      <div class="setting">
+        <label class="toggle">
+          <input type="checkbox" id="rumble">
+          <span class="setting-label" data-i18n="rumbleLabel"></span>
+        </label>
+        <div class="slider-row">
+          <input type="range" id="strength" min="50" max="150" step="5" aria-labelledby="strengthLabel">
+          <span id="strengthValue" class="num"></span>
+          <button class="quiet small" id="testRumble" data-i18n="testRumble"></button>
+        </div>
+        <p class="help" id="strengthLabel" data-i18n="strengthHelp"></p>
+      </div>
+    </section>
+  </div>
+
+  <details class="panel diag">
+    <summary data-i18n="diagTitle"></summary>
+    <div class="diag-actions"><button class="quiet small" id="resetCal" data-i18n="resetCal"></button></div>
+    <div class="log" id="log" role="log" aria-live="polite"></div>
+  </details>
+
+  <footer class="foot" data-i18n="footer"></footer>
+</div>
+<script type="module" src="hub.js"></script>
+</body>
+</html>
