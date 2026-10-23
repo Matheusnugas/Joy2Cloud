@@ -147,7 +147,8 @@ The tests decode synthetic packets, simulate sticks with circular and
 octagonal edges to check the calibration, and run the extension in a headless
 Chromium with fake Joy-Con to check what a game page receives (buttons,
 sticks, vibration, calibration, disconnects). `npm run screenshots` renders
-the images in `docs/`.
+the images in `docs/`, `npm run store-assets` the Chrome Web Store images in
+`store/`, and `npm run package` builds the release and store zips in `dist/`.
 
 To add a language, copy the `en` block in `extension/i18n.js`, translate it,
 add it to `LANGS`, and add a matching `extension/_locales/<code>/messages.json`.
@@ -172,6 +173,11 @@ people who reverse engineered these controllers:
   [Barlow Condensed](https://github.com/jpt/barlow) and
   [Libre Franklin](https://github.com/googlefonts/Libre-Franklin) typefaces,
   SIL Open Font License.
+
+## Privacy
+
+Joy2Cloud collects no data and makes no network requests of its own. See
+[PRIVACY.md](PRIVACY.md).
 
 ## License
 
