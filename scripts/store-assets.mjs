@@ -1,5 +1,6 @@
 // Renders Chrome Web Store images into store/:
-//   screenshot-1..3.jpg (1280x800), promo-small.png (440x280), promo-marquee.png (1400x560)
+//   screenshot-1..3.jpg (1280x800), promo-small.png (440x280), promo-marquee.png (1400x560),
+//   store-icon-128.png (128x128, 96x96 artwork with transparent padding)
 // Run: npm run store-assets
 import { chromium } from 'playwright';
 import { fileURLToPath } from 'node:url';
@@ -115,6 +116,16 @@ for (const [name, w, h, big] of [['promo-small.png', 440, 280, false], ['promo-m
   await p.setContent(promo(w, h, big), { waitUntil: 'load' });
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: OUT + name, omitBackground: false });
+  await p.close();
+}
+
+// Store icon: 96x96 artwork centred on a transparent 128x128 canvas (store guideline).
+{
+  const p = await ctx.newPage();
+  await p.setViewportSize({ width: 128, height: 128 });
+  const svg = readFileSync(EXT + '/icons/icon.svg', 'utf8').replace('<svg ', '<svg width="96" height="96" ');
+  await p.setContent(`<html><body style="margin:0;background:transparent"><div style="padding:16px;width:96px;height:96px">${svg}</div></body></html>`);
+  await p.screenshot({ path: OUT + 'store-icon-128.png', omitBackground: true, clip: { x: 0, y: 0, width: 128, height: 128 } });
   await p.close();
 }
 

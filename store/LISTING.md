@@ -46,7 +46,7 @@ Joy2Cloud is an independent project, not affiliated with or endorsed by Nintendo
 
 | Field | File |
 | --- | --- |
-| Store icon (128×128) | `extension/icons/icon128.png` |
+| Store icon (128×128) | `store-icon-128.png` |
 | Screenshots (1280×800) | `screenshot-1.jpg`, `screenshot-2.jpg`, `screenshot-3.jpg` |
 | Small promo tile (440×280) | `promo-small.png` |
 | Marquee promo tile (1400×560) | `promo-marquee.png` |
