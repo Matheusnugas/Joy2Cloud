@@ -48,8 +48,9 @@ controller. Nothing to install on the system, nothing to disable.
   left grip, light rumble on the right. Adjustable strength.
 - Face buttons by position (bottom button is Xbox A, matching on-screen
   prompts) or by letter.
-- Auto-reconnect for 90 seconds if a Joy-Con drops.
-- English, Português, Français and Español.
+- Auto-reconnect for 90 seconds if a Joy-Con drops, and a Disconnect button
+  per Joy-Con (or for both) when you're done.
+- Dark and light themes, in English, Português, Français and Español.
 
 ## Supported sites
 
@@ -166,7 +167,10 @@ people who reverse engineered these controllers:
   MIT licensed; see [NOTICE.md](NOTICE.md).
 - **[Switch2-Controllers](https://github.com/Nohzockt/Switch2-Controllers)**
   by Nohzockt, used to cross-check the button layout.
-- [Rubik](https://github.com/googlefonts/rubik) typeface, SIL Open Font License.
+- [League Spartan](https://github.com/theleagueof/league-spartan),
+  [Barlow Condensed](https://github.com/jpt/barlow) and
+  [Libre Franklin](https://github.com/googlefonts/Libre-Franklin) typefaces,
+  SIL Open Font License.
 
 ## License
 

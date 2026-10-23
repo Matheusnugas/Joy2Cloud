@@ -12,6 +12,12 @@ export const LANGS = [
 
 const STRINGS = {
   en: {
+    stripLabel: 'Joy2Cloud control tab',
+    disconnect: 'Disconnect',
+    disconnectAll: 'Disconnect all',
+    themeToLight: 'Switch to light mode',
+    themeToDark: 'Switch to dark mode',
+    logUserDisconnected: '$1 disconnected. Hold sync and pair it again to reconnect.',
     lede: 'Pair both Joy-Con, keep this tab open, and play in another tab.',
     languageLabel: 'Language',
     leftName: 'Left Joy-Con',
@@ -77,6 +83,12 @@ const STRINGS = {
   },
 
   pt: {
+    stripLabel: 'Painel do Joy2Cloud',
+    disconnect: 'Desconectar',
+    disconnectAll: 'Desconectar todos',
+    themeToLight: 'Mudar para o modo claro',
+    themeToDark: 'Mudar para o modo escuro',
+    logUserDisconnected: '$1 desconectado. Para reconectar, segure o botão de sincronizar e pareie de novo.',
     lede: 'Pareie os dois Joy-Cons, deixe esta aba aberta e jogue em outra aba.',
     languageLabel: 'Idioma',
     leftName: 'Joy-Con esquerdo',
@@ -142,6 +154,12 @@ const STRINGS = {
   },
 
   fr: {
+    stripLabel: 'Panneau Joy2Cloud',
+    disconnect: 'Déconnecter',
+    disconnectAll: 'Tout déconnecter',
+    themeToLight: 'Passer en mode clair',
+    themeToDark: 'Passer en mode sombre',
+    logUserDisconnected: '$1 déconnecté. Pour le reconnecter, maintenez le bouton de synchronisation et associez-le à nouveau.',
     lede: 'Associez les deux Joy-Con, gardez cet onglet ouvert et jouez dans un autre onglet.',
     languageLabel: 'Langue',
     leftName: 'Joy-Con gauche',
@@ -207,6 +225,12 @@ const STRINGS = {
   },
 
   es: {
+    stripLabel: 'Panel de Joy2Cloud',
+    disconnect: 'Desconectar',
+    disconnectAll: 'Desconectar todos',
+    themeToLight: 'Cambiar a modo claro',
+    themeToDark: 'Cambiar a modo oscuro',
+    logUserDisconnected: '$1 desconectado. Para reconectarlo, mantén pulsado el botón de sincronización y emparéjalo de nuevo.',
     lede: 'Empareja los dos Joy-Con, deja esta pestaña abierta y juega en otra pestaña.',
     languageLabel: 'Idioma',
     leftName: 'Joy-Con izquierdo',

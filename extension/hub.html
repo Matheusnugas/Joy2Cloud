@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,59 +8,78 @@
 <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-<div class="page">
+<div class="strip">
+  <div class="wrap strip-row">
+    <span><span data-i18n="stripLabel"></span> <span id="version"></span></span>
+    <span class="link" id="link" data-state="idle" role="status"><span class="blink" aria-hidden="true"></span><span id="linkText"></span></span>
+  </div>
+</div>
 
+<div class="wrap page">
   <header class="top">
     <div class="brand">
-      <img src="icons/icon128.png" alt="" width="40" height="40">
+      <img src="icons/icon128.png" alt="" width="52" height="52">
       <div>
         <h1>Joy2Cloud</h1>
         <p class="lede" data-i18n="lede"></p>
       </div>
     </div>
     <div class="top-side">
-      <div class="link" id="link" data-state="idle" role="status">
-        <span class="link-dot"></span>
-        <span id="linkText"></span>
-      </div>
       <label class="lang">
         <span class="visually-hidden" data-i18n="languageLabel"></span>
         <select id="lang"></select>
       </label>
+      <button class="icon-btn" id="theme" type="button">
+        <svg class="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
     </div>
   </header>
 
   <section class="halves" aria-label="Controllers">
     <article class="half" data-side="L" id="halfL" data-state="empty">
       <header>
-        <h2 data-i18n="leftName"></h2>
-        <span class="state" id="stateL"></span>
+        <div>
+          <h2 data-i18n="leftName"></h2>
+          <p class="state" id="stateL"></p>
+        </div>
+        <button class="small" id="dropL" type="button" data-i18n="disconnect"></button>
       </header>
       <div class="viz">
         <canvas id="stickL" width="176" height="176" aria-hidden="true"></canvas>
         <p class="empty-hint" data-i18n="emptyHint"></p>
-        <p class="cal-hint" id="calL" hidden></p>
+        <div class="cal" id="calL" hidden>
+          <p class="cal-text" id="calTextL"></p>
+          <div class="cal-bar"><div class="cal-fill" id="calFillL"></div></div>
+        </div>
       </div>
       <div class="chips" id="chipsL"></div>
     </article>
 
     <article class="half" data-side="R" id="halfR" data-state="empty">
       <header>
-        <h2 data-i18n="rightName"></h2>
-        <span class="state" id="stateR"></span>
+        <div>
+          <h2 data-i18n="rightName"></h2>
+          <p class="state" id="stateR"></p>
+        </div>
+        <button class="small" id="dropR" type="button" data-i18n="disconnect"></button>
       </header>
       <div class="viz">
         <canvas id="stickR" width="176" height="176" aria-hidden="true"></canvas>
         <p class="empty-hint" data-i18n="emptyHint"></p>
-        <p class="cal-hint" id="calR" hidden></p>
+        <div class="cal" id="calR" hidden>
+          <p class="cal-text" id="calTextR"></p>
+          <div class="cal-bar"><div class="cal-fill" id="calFillR"></div></div>
+        </div>
       </div>
       <div class="chips" id="chipsR"></div>
     </article>
   </section>
 
   <div class="actions">
-    <button class="primary" id="pair" data-i18n="pairButton"></button>
-    <button class="quiet" id="recenter" data-i18n-title="calibrateTitle"></button>
+    <button class="primary" id="pair" type="button" data-i18n="pairButton"></button>
+    <button class="secondary" id="recenter" type="button" data-i18n-title="calibrateTitle"></button>
+    <button class="secondary" id="dropAll" type="button" data-i18n="disconnectAll"></button>
   </div>
 
   <div class="columns">
@@ -95,7 +114,7 @@
         <div class="slider-row">
           <input type="range" id="strength" min="50" max="150" step="5" aria-labelledby="strengthLabel">
           <span id="strengthValue" class="num"></span>
-          <button class="quiet small" id="testRumble" data-i18n="testRumble"></button>
+          <button class="small" id="testRumble" type="button" data-i18n="testRumble"></button>
         </div>
         <p class="help" id="strengthLabel" data-i18n="strengthHelp"></p>
       </div>
@@ -104,7 +123,7 @@
 
   <details class="panel diag">
     <summary data-i18n="diagTitle"></summary>
-    <div class="diag-actions"><button class="quiet small" id="resetCal" data-i18n="resetCal"></button></div>
+    <div class="diag-actions"><button class="small" id="resetCal" type="button" data-i18n="resetCal"></button></div>
     <div class="log" id="log" role="log" aria-live="polite"></div>
   </details>
 

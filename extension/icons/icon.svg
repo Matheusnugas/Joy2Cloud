@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect x="4" y="4" width="120" height="120" rx="30" fill="#3d5afe"/>
-  <g fill="#ffffff">
+  <rect x="4" y="4" width="120" height="120" rx="14" fill="#0b0b0c"/>
+  <rect x="4" y="4" width="120" height="120" rx="14" fill="none" stroke="#3a3a3e" stroke-width="4"/>
+  <g fill="#ece9e3">
     <circle cx="45" cy="64" r="20"/>
     <circle cx="68" cy="50" r="26"/>
     <circle cx="90" cy="66" r="18"/>
     <rect x="25" y="62" width="83" height="30" rx="15"/>
   </g>
-  <circle cx="51" cy="76" r="8" fill="#12a6a0"/>
-  <circle cx="81" cy="76" r="8" fill="#d6336c"/>
+  <rect x="44" y="69" width="14" height="14" fill="#e3242b"/>
+  <rect x="74" y="69" width="14" height="14" fill="#e3242b"/>
 </svg>

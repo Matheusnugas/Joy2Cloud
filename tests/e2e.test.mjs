@@ -117,13 +117,35 @@ assert.equal(await hub.evaluate(() => joy2cloudDebug.calibration.active), false,
 const saved = await hub.evaluate(() => chrome.storage.local.get('stickCal'));
 assert.ok(saved.stickCal['fake-L'] && saved.stickCal['fake-R'], 'profiles saved per device');
 
-// disconnecting both -> page falls back and gets a disconnect event
-await hub.evaluate(() => { const { slots, pushState } = joy2cloudDebug; slots.L.connected = false; slots.R.connected = false; pushState(true); });
+// theme toggle: dark by default, persisted
+assert.equal(await hub.evaluate(() => document.documentElement.dataset.theme), 'dark');
+await hub.click('#theme');
+assert.equal(await hub.evaluate(() => document.documentElement.dataset.theme), 'light');
+assert.equal((await hub.evaluate(() => chrome.storage.local.get('theme'))).theme, 'light');
+await hub.click('#theme');
+
+// disconnect one side: the game keeps a controller, the side is freed, no auto-reconnect
+await hub.click('#dropL');
+assert.equal(await hub.evaluate(() => joy2cloudDebug.slots.L), null);
+assert.equal(await hub.evaluate(() => document.getElementById('halfL').dataset.state), 'empty');
+assert.equal(await hub.evaluate(() => __fake.a.reconnecting), false);
+await page.waitForFunction(() => !!navigator.getGamepads()[0]);
+// input from the disconnected Joy-Con is ignored
+await hub.evaluate(() => __feed(1 << 23, [2048, 2048], 0, [2048, 2048], 1));
+assert.equal(await page.evaluate(() => navigator.getGamepads()[0].buttons[6].pressed), false);
+
+// disconnect all: the game loses the controller and gets a disconnect event
+await hub.click('#dropAll');
 await page.waitForFunction(() => !navigator.getGamepads()[0]);
 assert.deepEqual((await page.evaluate(() => __events)).at(-1), ['disconnected', false]);
+assert.equal(await hub.isDisabled('#dropAll'), true);
 
 // closing the control tab removes the virtual controller
-await hub.evaluate(() => { const { slots, pushState } = joy2cloudDebug; slots.L.connected = true; pushState(true); });
+await hub.evaluate(() => {
+  const { newSlot, assignSlot, pushState } = joy2cloudDebug;
+  const s = newSlot({ id: 'again', gatt: { disconnect() {} } });
+  s.connected = true; assignSlot(s, 'L'); pushState(true);
+});
 await page.waitForFunction(() => !!navigator.getGamepads()[0]);
 await hub.close();
 await page.waitForFunction(() => !navigator.getGamepads()[0], null, { timeout: 5000 });

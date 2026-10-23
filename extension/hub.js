@@ -24,10 +24,29 @@ function applyText() {
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
   $('recenter').textContent = t(calibration.active ? 'calCancel' : 'calibrateButton');
+  applyTheme();
   buildChips();
   applySettingsToUi();
   render();
 }
+
+// ---------- theme (dark by default, like the portfolio it borrows from) ----------
+$('version').textContent = 'v' + chrome.runtime.getManifest().version;
+
+function applyTheme() {
+  document.documentElement.dataset.theme = settings.theme;
+  const btn = $('theme');
+  const label = t(settings.theme === 'dark' ? 'themeToLight' : 'themeToDark');
+  btn.setAttribute('aria-label', label);
+  btn.title = label;
+  drawLive();
+}
+
+$('theme').addEventListener('click', () => {
+  settings.theme = settings.theme === 'dark' ? 'light' : 'dark';
+  chrome.storage.local.set({ theme: settings.theme });
+  applyTheme();
+});
 
 langSelect.addEventListener('change', () => {
   setLang(langSelect.value);
@@ -50,7 +69,7 @@ function log(msg, isErr = false) {
 }
 
 // ---------- settings ----------
-const settings = { layout: 'position', rumble: true, strength: 100 };
+const settings = { layout: 'position', rumble: true, strength: 100, theme: 'dark' };
 setLang('en');
 let savedCalibrations = {}; // device id -> stick profile
 
@@ -64,7 +83,8 @@ function applySettingsToUi() {
   $('strengthValue').textContent = settings.strength + '%';
 }
 
-chrome.storage.local.get(['lang', 'layout', 'rumble', 'strength', 'stickCal']).then((s) => {
+chrome.storage.local.get(['lang', 'theme', 'layout', 'rumble', 'strength', 'stickCal']).then((s) => {
+  if (s.theme === 'light' || s.theme === 'dark') settings.theme = s.theme;
   setLang(s.lang || 'en');
   if (!s.lang) chrome.storage.local.set({ lang: 'en', toast: toastStrings('en') });
   if (s.layout) settings.layout = s.layout;
@@ -228,6 +248,7 @@ async function setupDevice(device, slot) {
 }
 
 function onInput(slot, dv) {
+  if (slot.dropped) return; // stale listener from a slot the user disconnected
   const r = parseReport(dv);
   if (!r) return;
 
@@ -327,6 +348,31 @@ async function pair() {
 }
 
 $('pair').addEventListener('click', pair);
+
+// ---------- disconnect ----------
+// A manual disconnect frees the side and must not trigger auto-reconnect.
+// The Joy-Con goes back to sleep; pairing it again needs the sync button.
+function disconnectSlot(slot) {
+  if (!slot) return;
+  if (calibration.active && calibration.slots.includes(slot)) cancelCalibration();
+  slot.dropped = true;
+  slot.reconnecting = false;
+  slot.rumble.amp = 0;
+  if (slot.connected && slot.rumbleChar) sendRumble(slot, 0);
+  slot.connected = false;
+  slot.bits = 0;
+  slot.stick = { x: 0, y: 0 };
+  slot.trail = [];
+  if (slots[slot.side] === slot) slots[slot.side] = null;
+  try { slot.device.gatt.disconnect(); } catch (_) { /* already gone */ }
+  log(t('logUserDisconnected', sideName(slot.side)));
+  render();
+  pushState(true);
+}
+
+$('dropL').addEventListener('click', () => disconnectSlot(slots.L));
+$('dropR').addEventListener('click', () => disconnectSlot(slots.R));
+$('dropAll').addEventListener('click', () => allSlots().forEach(disconnectSlot));
 
 // ---------- guided stick calibration ----------
 const calibration = { active: false, phase: 'idle', slots: [] };
@@ -540,6 +586,9 @@ function render() {
     $('state' + side).textContent = text;
   }
   $('recenter').disabled = !connectedSlots().length;
+  $('dropAll').disabled = !allSlots().length;
+  $('dropL').disabled = !slots.L;
+  $('dropR').disabled = !slots.R;
   $('resetCal').disabled = !allSlots().some((s) => savedCalibrations[s.device.id]);
   renderCalibrationText();
   renderLink();
@@ -553,12 +602,14 @@ function renderCalibrationText() {
     const el = $('cal' + side);
     if (!calibration.active || !s || !calibration.slots.includes(s)) { el.hidden = true; continue; }
     el.hidden = false;
+    let pct = 0;
     if (calibration.phase === 'release' || !s.calib.centerKnown) {
-      el.textContent = t('calRelease');
+      $('calText' + side).textContent = t('calRelease');
     } else {
-      const pct = Math.round(s.calib.captureProgress() * 100);
-      el.textContent = pct >= 100 ? t('calLetGo') : t('calRotate', pct);
+      pct = Math.round(s.calib.captureProgress() * 100);
+      $('calText' + side).textContent = pct >= 100 ? t('calLetGo') : t('calRotate', pct);
     }
+    $('calFill' + side).style.width = pct + '%';
   }
 }
 
@@ -594,8 +645,8 @@ function drawLive() {
     const { ctx, size } = canvases[side];
     const mid = size / 2;
     const radius = 70;
-    const color = cssVar(side === 'L' ? '--left' : '--right');
-    const line = cssVar('--line');
+    const color = cssVar('--acc');
+    const line = cssVar('--line2');
     const muted = cssVar('--muted');
     ctx.clearRect(0, 0, size, size);
 
@@ -670,4 +721,4 @@ applyText();
 log(t('logReady'));
 
 // Debug hook for the console and the test suite: simulate input without Bluetooth.
-globalThis.joy2cloudDebug = { slots, newSlot, assignSlot, onInput, pushState, handleRumble, render, calibration };
+globalThis.joy2cloudDebug = { slots, newSlot, assignSlot, onInput, pushState, handleRumble, render, calibration, disconnectSlot };

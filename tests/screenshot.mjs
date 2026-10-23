@@ -15,6 +15,9 @@ const sw = ctx.serviceWorkers()[0] || await ctx.waitForEvent('serviceworker');
 const hub = await ctx.newPage();
 await hub.goto(`chrome-extension://${new URL(sw.url()).host}/hub.html`);
 await hub.waitForFunction(() => !!globalThis.joy2cloudDebug);
+await hub.evaluate((theme) => chrome.storage.local.set({ theme }), scheme);
+await hub.reload();
+await hub.waitForFunction(() => !!globalThis.joy2cloudDebug);
 await hub.selectOption('#lang', lang);
 await hub.evaluate(() => {
   const { newSlot, assignSlot, onInput, render } = joy2cloudDebug;

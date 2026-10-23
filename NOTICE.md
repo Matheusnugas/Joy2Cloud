@@ -42,11 +42,14 @@ This project builds upon reverse engineering work from:
 Special thanks to ndeadly and Narr the Reg for IMU initialization sequence discovery.
 ```
 
-## Rubik typeface
+## Typefaces
 
-`extension/fonts/rubik-*.woff2` are from the Rubik project
-(https://github.com/googlefonts/rubik), licensed under the SIL Open Font
-License 1.1. The full license is in `extension/fonts/OFL.txt`.
+The fonts in `extension/fonts/` are licensed under the SIL Open Font License
+1.1; each license is next to its files:
+
+- League Spartan, https://github.com/theleagueof/league-spartan (`OFL-LeagueSpartan.txt`)
+- Barlow Condensed, https://github.com/jpt/barlow (`OFL-BarlowCondensed.txt`)
+- Libre Franklin, https://github.com/googlefonts/Libre-Franklin (`OFL-LibreFranklin.txt`)
 
 ## Protocol documentation
 
