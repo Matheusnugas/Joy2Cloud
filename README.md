@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/joy2cloud/jjnpndfledflbabfinlmaiddnfonmdbk"><img src="https://img.shields.io/chrome-web-store/v/jjnpndfledflbabfinlmaiddnfonmdbk?label=Chrome%20Web%20Store&color=e3242b" alt="Chrome Web Store"></a>
+</p>
+
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark-en.png">
     <img src="docs/screenshot-light-en.png" width="760" alt="The Joy2Cloud control tab with both Joy-Con connected, live stick positions and pressed buttons">
@@ -68,13 +72,18 @@ the untested ones, please open an issue with how it went.
 
 ## Install
 
-Joy2Cloud isn't on the Chrome Web Store, so it's loaded as an unpacked extension.
+**[Add Joy2Cloud to Chrome](https://chromewebstore.google.com/detail/joy2cloud/jjnpndfledflbabfinlmaiddnfonmdbk)** from the Chrome Web Store, then pin it
+to the toolbar from the puzzle-piece menu.
+
+<details>
+<summary>Install from source instead</summary>
 
 1. Download the latest `joy2cloud-vX.Y.Z.zip` from
    [Releases](../../releases) and unzip it (or clone this repository).
 2. Open `chrome://extensions` and turn on **Developer mode** (top right).
 3. Click **Load unpacked** and select the `extension` folder.
-4. Pin Joy2Cloud to the toolbar from the puzzle-piece menu.
+
+</details>
 
 Works in Google Chrome and other Chromium browsers with Web Bluetooth enabled.
 Safari and Firefox don't support Web Bluetooth.

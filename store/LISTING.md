@@ -1,5 +1,7 @@
 # Chrome Web Store submission
 
+Published: https://chromewebstore.google.com/detail/joy2cloud/jjnpndfledflbabfinlmaiddnfonmdbk
+
 Everything needed to fill in the Developer Dashboard, field by field.
 Upload `dist/joy2cloud-v<version>-store.zip` (built by `npm run package`;
 it has `manifest.json` at the root, as the store requires).
