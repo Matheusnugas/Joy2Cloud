@@ -26,8 +26,9 @@ Bluetooth LE protocol instead of standard HID. The best option I found was
 [JoyCon2Mac](https://github.com/OZORDI/JoyCon2Mac), a great native app that
 exposes the Joy-Con as a system gamepad. The catch is that it does so through a
 DriverKit system extension, and without driver entitlements granted by Apple
-it only loads with System Integrity Protection (SIP) and AMFI turned off. I
-wasn't willing to do that on the machine I use for work.
+it only loads with System Integrity Protection (SIP) and AMFI turned off.
+Disabling core macOS security, with a couple of reboots every time, felt like
+way too much hassle just to play a game.
 
 Then it clicked: cloud gaming already runs inside the browser. Chrome can talk
 to Bluetooth LE devices directly (Web Bluetooth), and games read controllers
